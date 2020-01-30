@@ -7,7 +7,7 @@ namespace SocialNetwork.DataAccess.Repositories
 {
     public interface IUserRepository<T>: IBaseRepository<T>
     {
-        User GetById(int UserId);
+        void Update(User user);
 
         List<User> GetFriends(int UserId);
 

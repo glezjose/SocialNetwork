@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialNetwork.DataAccess.Context;
 
 namespace SocialNetwork.DataAccess.Migrations
 {
     [DbContext(typeof(SocialNetworkContext))]
-    partial class SocialNetworkContextModelSnapshot : ModelSnapshot
+    [Migration("20200128231701_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,7 @@ namespace SocialNetwork.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValue(new DateTime(2020, 1, 28, 17, 17, 1, 441, DateTimeKind.Local).AddTicks(8627));
 
                     b.Property<int>("MessageId")
                         .HasColumnType("int");
@@ -52,9 +54,9 @@ namespace SocialNetwork.DataAccess.Migrations
                     b.ToTable("Chats");
                 });
 
-            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.FriendRelationship", b =>
+            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.Friend", b =>
                 {
-                    b.Property<int>("FriendRelationshipId")
+                    b.Property<int>("FriendId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -70,7 +72,7 @@ namespace SocialNetwork.DataAccess.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("FriendRelationshipId");
+                    b.HasKey("FriendId");
 
                     b.HasIndex("FriendUserId");
 
@@ -104,7 +106,7 @@ namespace SocialNetwork.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValue(new DateTime(2020, 1, 28, 17, 17, 1, 416, DateTimeKind.Local).AddTicks(1991));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -170,7 +172,7 @@ namespace SocialNetwork.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.FriendRelationship", b =>
+            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.Friend", b =>
                 {
                     b.HasOne("SocialNetwork.DataAccess.Entities.User", "FriendUser")
                         .WithMany("FriendsOf")

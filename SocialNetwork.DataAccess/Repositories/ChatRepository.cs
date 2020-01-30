@@ -9,7 +9,7 @@ namespace SocialNetwork.DataAccess.Repositories
 {
     public class ChatRepository : IBaseRepository<Chat>, IChatRepository
     {
-        protected readonly SocialNetworkContext context;
+        private readonly SocialNetworkContext context;
 
         public ChatRepository(SocialNetworkContext _context)
         {
@@ -23,6 +23,11 @@ namespace SocialNetwork.DataAccess.Repositories
         public void Delete(Chat chat)
         {
             context.Chats.Remove(chat);
+        }
+
+        public Chat GetById(int id)
+        {
+            return context.Chats.Find(id);
         }
 
         public List<Chat> GetChat(int SenderId, int TargetId)

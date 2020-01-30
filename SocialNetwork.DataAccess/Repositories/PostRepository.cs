@@ -26,9 +26,23 @@ namespace SocialNetwork.DataAccess.Repositories
             context.Posts.Remove(post);
         }
 
+        public Post GetById(int PostId)
+        {
+            return context.Posts.Find(PostId);
+        }
+
         public IReadOnlyList<Post> GetFriendsPosts(int UserId)
         {
-            return context.Users.Find(UserId).FriendsWith.SelectMany(fw => fw.FriendUser.Posts).OrderByDescending(p => p.Date).ToList();
+            //return context.Users.Find(UserId).FriendsWith.SelectMany(fw => fw.FriendUser.Posts).OrderByDescending(p => p.Date).ToList();
+            return context.Users.Join(context.Friends, u => u.UserId, f => f.UserId, (u, f) => new User
+            {
+                UserId = f.FriendUserId
+            }).Join(context.Posts, u => u.UserId, p => p.UserId, (u, p) => new Post
+            {
+                Title = p.Title,
+                Description = p.Description,
+                Date = p.Date,
+            }).ToList();
         }
 
         public IReadOnlyList<Post> GetUserPosts(int UserId)

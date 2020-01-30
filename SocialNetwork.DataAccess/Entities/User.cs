@@ -12,10 +12,10 @@ namespace SocialNetwork.DataAccess.Entities
         public string MotherSurname { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public virtual List<Friend> FriendsWith { get; set; }
-        public virtual List<Friend> FriendsOf { get; set; }
-        public virtual List<Post> Posts { get; set; }
-        public virtual List<Chat> SentMessages { get; set; }
-        public virtual List<Chat> RecievedMessages { get; set; }
+        public virtual List<FriendRelationship> FriendsWith { get; }
+        public virtual List<FriendRelationship> FriendsOf { get; }
+        public virtual List<Post> Posts { get; }
+        public virtual List<Chat> SentMessages { get; }
+        public virtual List<Chat> RecievedMessages { get; }
     }
 }

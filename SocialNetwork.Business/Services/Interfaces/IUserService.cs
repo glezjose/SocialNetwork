@@ -8,7 +8,6 @@ namespace SocialNetwork.BusinessLogic.Services
     {
         UserDTO GetUser(int UserId);
         List<UserDTO> GetUsers();
-
         UserDTO AddUser(User user);
     }
 }

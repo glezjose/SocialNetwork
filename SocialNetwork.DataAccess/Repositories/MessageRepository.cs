@@ -23,5 +23,10 @@ namespace SocialNetwork.DataAccess.Repositories
         {
             context.Messages.Remove(message);
         }
+
+        public Message GetById(int id)
+        {
+            return context.Messages.Find(id);
+        }
     }
 }

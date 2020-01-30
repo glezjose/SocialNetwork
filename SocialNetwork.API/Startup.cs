@@ -1,26 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using SocialNetwork.BusinessLogic.Services;
 using SocialNetwork.DataAccess.Context;
 using SocialNetwork.DataAccess.Entities;
 using SocialNetwork.DataAccess.Repositories;
 using SocialNetwork.DataAccess.UoW;
 using SocialNetwork.DataAccess.Validations;
+using System;
 
 namespace SocialNetwork.API
 {
@@ -37,8 +29,11 @@ namespace SocialNetwork.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository<User>, UserRepository>();
+            services.AddScoped<IFriendRepository<FriendRelationship>, FriendRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFriendService, FriendService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
