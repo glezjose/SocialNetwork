@@ -1,4 +1,5 @@
 using AutoMapper;
+using CloudinaryDotNet;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SocialNetwork.BusinessLogic.CloudinaryServices;
 using SocialNetwork.BusinessLogic.Services;
 using SocialNetwork.DataAccess.Context;
 using SocialNetwork.DataAccess.Entities;
@@ -30,15 +32,20 @@ namespace SocialNetwork.API
         {
             services.AddScoped<IUserRepository<User>, UserRepository>();
             services.AddScoped<IFriendRepository<FriendRelationship>, FriendRepository>();
+            services.AddScoped<IPostRepository<Post>, PostRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFriendService, FriendService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICloudinaryService, CloudinaryService>();
+
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers().AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<UserValidator>());
 
+            services.AddCloudinary(new Account("dnklcagph", "917441879293999", "SnrEKFffXOSF3XJJ5OfVPFs5cDw"));
 
             services.AddDbContext<SocialNetworkContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

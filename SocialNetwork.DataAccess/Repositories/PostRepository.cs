@@ -4,11 +4,10 @@ using SocialNetwork.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SocialNetwork.DataAccess.Repositories
 {
-    public class PostRepository : IBaseRepository<Post>, IPostRepository<Post>
+    public class PostRepository : IPostRepository<Post>
     {
         protected readonly SocialNetworkContext context;
 
@@ -19,6 +18,7 @@ namespace SocialNetwork.DataAccess.Repositories
         public void Add(Post post)
         {
             context.Posts.Add(post);
+            context.Entry(post).Reference("User").Load();
         }
 
         public void Delete(Post post)
@@ -31,23 +31,31 @@ namespace SocialNetwork.DataAccess.Repositories
             return context.Posts.Find(PostId);
         }
 
-        public IReadOnlyList<Post> GetFriendsPosts(int UserId)
+        public List<Post> GetFriendsPosts(int UserId)
         {
-            //return context.Users.Find(UserId).FriendsWith.SelectMany(fw => fw.FriendUser.Posts).OrderByDescending(p => p.Date).ToList();
-            return context.Users.Join(context.Friends, u => u.UserId, f => f.UserId, (u, f) => new User
-            {
-                UserId = f.FriendUserId
-            }).Join(context.Posts, u => u.UserId, p => p.UserId, (u, p) => new Post
-            {
-                Title = p.Title,
-                Description = p.Description,
-                Date = p.Date,
-            }).ToList();
+            return context.Users.AsNoTracking()
+                .Join(context.Friends,
+                user => user.UserId,
+                friend => friend.UserId,
+                (user, friend) => new { user, friend })
+                .Join(context.Posts,
+                newfriend => newfriend.friend.FriendUserId,
+                post => post.UserId,
+                (newfriend, post) => new { newfriend, post })
+                .Where(f => f.newfriend.friend.UserId == UserId)
+                .Select(p => new Post
+                {
+                    Title = p.post.Title,
+                    Description = p.post.Description,
+                    Multimedia = p.post.Multimedia,
+                    Date = p.post.Date,
+                    User = p.post.User
+                }).ToList();
         }
 
-        public IReadOnlyList<Post> GetUserPosts(int UserId)
+        public List<Post> GetUserPosts(int UserId)
         {
-            return context.Posts.Where(p => p.UserId == UserId).OrderByDescending(p => p.Date).ToList();
+            return context.Posts.AsNoTracking().Include(p => p.User).Where(p => p.UserId == UserId).OrderByDescending(p => p.Date).ToList();
         }
     }
 }

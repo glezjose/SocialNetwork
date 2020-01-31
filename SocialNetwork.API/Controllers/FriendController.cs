@@ -19,7 +19,7 @@ namespace SocialNetwork.API.Controllers
             friendService = _friendService ?? throw new ArgumentNullException(nameof(_friendService));
         }
 
-        [HttpGet()]
+        [HttpGet]
         [Route("api/user/{id}/requests")]
         public IActionResult GetFriendRequests(int id)
         {
