@@ -4,10 +4,10 @@ using System.Text;
 
 namespace SocialNetwork.DataAccess.Repositories
 {
-    public interface IPostRepository<T>
+    public interface IPostRepository<T>: IBaseRepository<T>
     {
-        IReadOnlyList<T> GetFriendsPosts(int UserId);
+        List<T> GetFriendsPosts(int UserId);
 
-        IReadOnlyList<T> GetUserPosts(int UserId);
+        List<T> GetUserPosts(int UserId);
     }
 }

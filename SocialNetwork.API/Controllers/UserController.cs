@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.BusinessLogic.Services;
 using SocialNetwork.DataAccess.DTOs;
 using SocialNetwork.DataAccess.Entities;
-using SocialNetwork.DataAccess.Repositories;
-using SocialNetwork.DataAccess.UoW;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SocialNetwork.API.Controllers
 {
@@ -23,10 +19,10 @@ namespace SocialNetwork.API.Controllers
             userService = _userService ?? throw new ArgumentNullException(nameof(_userService));
         }
 
-        [HttpGet("{UserId}")]
-        public IActionResult GetUser(int UserId)
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int id)
         {
-            UserDTO user = userService.GetUser(UserId);
+            UserDTO user = userService.GetUser(id);
 
             if (user == null) return NotFound();
 
@@ -38,6 +34,8 @@ namespace SocialNetwork.API.Controllers
         {
             List<UserDTO> users = userService.GetUsers();
 
+            if (!users.Any()) return NotFound();
+
             return Ok(users);
         }
 
@@ -48,5 +46,6 @@ namespace SocialNetwork.API.Controllers
 
             return Ok(newUser);
         }
+
     }
 }

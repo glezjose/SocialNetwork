@@ -4,11 +4,10 @@ using System.Text;
 
 namespace SocialNetwork.DataAccess.DTOs
 {
-    public class UserDTO
+    public class FriendToAddDTO
     {
+        public int FriendId { get; set; }
         public int UserId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public bool IsAccepted { get; set; }
     }
 }

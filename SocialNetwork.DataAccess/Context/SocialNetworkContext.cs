@@ -20,10 +20,15 @@ namespace SocialNetwork.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<FriendRelationship>().Property(f => f.IsAccepted).HasDefaultValue(false);
+            
+            modelBuilder.Entity<Post>().Property(p => p.Date).HasDefaultValueSql("GETDATE()");
+            
+            modelBuilder.Entity<Chat>().Property(c => c.Date).HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<Friend>().HasOne(f => f.User).WithMany(u => u.FriendsWith).HasForeignKey(f => f.UserId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FriendRelationship>().HasOne(f => f.User).WithMany(u => u.FriendsWith).HasForeignKey(f => f.UserId).OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Friend>().HasOne(f => f.FriendUser).WithMany(u => u.FriendsOf).HasForeignKey(f => f.FriendUserId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FriendRelationship>().HasOne(f => f.FriendUser).WithMany(u => u.FriendsOf).HasForeignKey(f => f.FriendUserId).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Post>().HasOne(p => p.User).WithMany(u => u.Posts).HasForeignKey(p => p.UserId);
 
@@ -39,6 +44,6 @@ namespace SocialNetwork.DataAccess.Context
         public DbSet<Post> Posts { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Chat> Chats { get; set; }
-        public DbSet<Friend> Friends { get; set; }
+        public DbSet<FriendRelationship> Friends { get; set; }
     }
 }

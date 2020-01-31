@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SocialNetwork.DataAccess.Entities
 {
-    public class Friend
+    public class FriendRelationship
     {
-        public int FriendId { get; set; }
+        public int FriendRelationshipId { get; set; }
 
         public User User { get; set; }
         public int UserId { get; set; }

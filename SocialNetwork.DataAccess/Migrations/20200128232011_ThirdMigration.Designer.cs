@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialNetwork.DataAccess.Context;
 
 namespace SocialNetwork.DataAccess.Migrations
 {
     [DbContext(typeof(SocialNetworkContext))]
-    partial class SocialNetworkContextModelSnapshot : ModelSnapshot
+    [Migration("20200128232011_ThirdMigration")]
+    partial class ThirdMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +54,9 @@ namespace SocialNetwork.DataAccess.Migrations
                     b.ToTable("Chats");
                 });
 
-            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.FriendRelationship", b =>
+            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.Friend", b =>
                 {
-                    b.Property<int>("FriendRelationshipId")
+                    b.Property<int>("FriendId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -70,7 +72,7 @@ namespace SocialNetwork.DataAccess.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("FriendRelationshipId");
+                    b.HasKey("FriendId");
 
                     b.HasIndex("FriendUserId");
 
@@ -107,9 +109,6 @@ namespace SocialNetwork.DataAccess.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Multimedia")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -173,7 +172,7 @@ namespace SocialNetwork.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.FriendRelationship", b =>
+            modelBuilder.Entity("SocialNetwork.DataAccess.Entities.Friend", b =>
                 {
                     b.HasOne("SocialNetwork.DataAccess.Entities.User", "FriendUser")
                         .WithMany("FriendsOf")

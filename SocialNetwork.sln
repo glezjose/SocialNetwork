@@ -19,6 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{191AEB8A-EA5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2A4A11F9-D336-4DF2-9570-D93E39483514}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.BusinessLogic.Tests", "SocialNetwork.BusinessLogic.Tests\SocialNetwork.BusinessLogic.Tests.csproj", "{9DBEA850-F244-4E68-AD82-1AFBBB5D1718}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4004BAC-F62F-4608-897F-23C254A13AD4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +44,10 @@ Global
 		{A6611A94-A0C3-45A8-BCD7-671697313E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6611A94-A0C3-45A8-BCD7-671697313E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6611A94-A0C3-45A8-BCD7-671697313E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DBEA850-F244-4E68-AD82-1AFBBB5D1718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DBEA850-F244-4E68-AD82-1AFBBB5D1718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DBEA850-F244-4E68-AD82-1AFBBB5D1718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DBEA850-F244-4E68-AD82-1AFBBB5D1718}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +59,7 @@ Global
 		{BCEBAA2A-A706-4775-B4FB-705652FDCE9E} = {191AEB8A-EA5A-4CAF-80A6-C663E4B1279F}
 		{F3A2B096-C951-4EF7-90BC-DDC03C78EAA8} = {BCEBAA2A-A706-4775-B4FB-705652FDCE9E}
 		{A6611A94-A0C3-45A8-BCD7-671697313E8C} = {9E6BF664-564D-4EE8-A9B1-B72FBBB965D4}
+		{9DBEA850-F244-4E68-AD82-1AFBBB5D1718} = {2A4A11F9-D336-4DF2-9570-D93E39483514}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63E02EA3-807F-4CAA-B3F7-54A181725BBA}

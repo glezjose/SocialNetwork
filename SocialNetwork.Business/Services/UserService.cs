@@ -35,6 +35,7 @@ namespace SocialNetwork.BusinessLogic.Services
         {
             userRepository.Add(user);
             unitOfWork.Commit();
+
             return mapper.Map<UserDTO>(user);
         }
     }

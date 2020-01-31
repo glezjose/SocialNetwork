@@ -10,7 +10,7 @@ namespace SocialNetwork.DataAccess.Repositories
 {
     public class UserRepository : IUserRepository<User>
     {
-        protected readonly SocialNetworkContext context;
+        private readonly SocialNetworkContext context;
         public UserRepository(SocialNetworkContext _context)
         {
             context = _context ?? throw new ArgumentNullException(nameof(_context));
@@ -26,6 +26,10 @@ namespace SocialNetwork.DataAccess.Repositories
             context.Users.Remove(user);
         }
 
+        public void Update(User user)
+        {
+            context.Users.Update(user);
+        }
         public User GetById(int UserId)
         {
             return context.Users.Find(UserId);
@@ -47,7 +51,7 @@ namespace SocialNetwork.DataAccess.Repositories
 
         public bool PhoneNumberNotExists(string PhoneNumber)
         {
-            return !context.Users.AsNoTracking().Any(U => U.PhoneNumber == PhoneNumber);
+            return !context.Users.AsNoTracking().Any(u => u.PhoneNumber == PhoneNumber);
         }
     }
 }
