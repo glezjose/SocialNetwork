@@ -1,0 +1,23 @@
+<ng-container *ngFor='let post of posts'>
+    <ng-container *ngIf = '!post.multimedia; else elseBlock'>
+        <nz-card style="width:500px;margin:auto;" nzTitle="{{post.title}}">
+            <p>{{post.description}}</p>
+            <a class="postedBy">{{post.postedBy}}</a>
+        </nz-card>
+    </ng-container>
+    <ng-template #elseBlock>
+        <nz-card style="width:500px;margin:auto;" [nzCover]="coverTemplate">
+            <nz-card-meta nzTitle="{{post.title}}" nzDescription="{{post.description}}"></nz-card-meta>
+            <p class="postedBy">{{post.postedBy}}</p>
+          </nz-card>
+          <ng-template #coverTemplate>
+            <ng-container *ngIf="post.multimedia && (post.multimedia.includes('.jpg') || post.multimedia.includes('.png'))">
+                <img class="hoverable" src='{{post.multimedia}}' width="500" appModal nzContent="{{post.multimedia}}">
+            </ng-container>
+            <ng-container *ngIf="post.multimedia && (post.multimedia.includes('.mp4') || post.multimedia.includes('.avi'))">
+                <video class="hoverable" src="{{post.multimedia}}" width="500" controls></video>
+            </ng-container>
+          </ng-template>
+    </ng-template>
+    <br>
+</ng-container>

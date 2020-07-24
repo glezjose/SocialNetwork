@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -41,6 +42,17 @@ namespace SocialNetwork.API.Controllers
             if (!posts.Any()) return NotFound();
 
             return Ok(posts);
+        }
+
+        [HttpGet]
+        [Route("api/user/{id}/poststring")]
+        public ActionResult<string[]> GetPostsToStirng(int id)
+        {
+            List<PostDTO> posts = postService.GetUserPosts(id);
+
+            if (!posts.Any()) return NotFound();
+
+            return new string[] { " Hi " };
         }
 
         [HttpPost]

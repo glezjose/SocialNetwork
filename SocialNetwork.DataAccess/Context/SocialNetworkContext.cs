@@ -15,7 +15,7 @@ namespace SocialNetwork.DataAccess.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=BOT-JGONZALEZA;Database=SocialNetworkDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=BOT-JGONZALEZA;Database=SocialNetworkDB;User Id=socialnetwork;Password=1234;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

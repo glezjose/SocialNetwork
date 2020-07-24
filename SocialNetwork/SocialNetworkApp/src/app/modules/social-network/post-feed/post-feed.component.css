@@ -1,0 +1,10 @@
+.postedBy{
+    float: right;
+    font-size: x-small;
+    margin-bottom: -24px;
+    margin-right: -15px;
+}
+
+.hoverable{
+    cursor: pointer;
+}

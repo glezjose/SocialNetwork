@@ -21,6 +21,7 @@ namespace SocialNetwork.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.CaptureStartupErrors(true);
                 });
     }
 }
