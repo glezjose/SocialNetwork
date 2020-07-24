@@ -26,6 +26,7 @@ namespace SocialNetwork.BusinessLogic.CloudinaryServices
                 return cloudinary.Upload(uploadParams).SecureUri.ToString();
             }
         }
+        
 
         public string VideoUpload(IFormFile file)
         {

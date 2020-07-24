@@ -3,6 +3,7 @@ using CloudinaryDotNet;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,12 +44,25 @@ namespace SocialNetwork.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+
             services.AddControllers().AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<UserValidator>());
 
             services.AddCloudinary(new Account("dnklcagph", "917441879293999", "SnrEKFffXOSF3XJJ5OfVPFs5cDw"));
 
             services.AddDbContext<SocialNetworkContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,10 +79,19 @@ namespace SocialNetwork.API
 
             app.UseAuthorization();
 
+            app.UseCors("AllowAll");
+
+            app.Use((context, next) =>
+            {
+                context.Items["__CorsMiddlewareInvoked"] = true;
+                return next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
